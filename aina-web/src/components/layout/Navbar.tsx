@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Shield, Zap, Globe, BookOpen } from "lucide-react";
+import { Menu, X, ChevronDown, Shield, Zap, Globe, BookOpen, LayoutDashboard, UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "./Container";
 
@@ -279,6 +279,36 @@ export function Navbar() {
               ))}
             </div>
 
+            {/* Dashboard link — desktop only */}
+            <Link
+              href="/dashboard"
+              id="nav-dashboard-link"
+              className={cn(
+                "hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-2 rounded-md transition-all duration-200",
+                pathname.startsWith("/dashboard")
+                  ? "text-[#f97316]"
+                  : "text-[#f97316]/70 hover:text-[#f97316]"
+              )}
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              Dashboard
+            </Link>
+
+            {/* Upload APK CTA — desktop only */}
+            <Link
+              href="/upload"
+              id="nav-upload-link"
+              className={cn(
+                "hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all duration-200 border",
+                pathname.startsWith("/upload")
+                  ? "bg-[#f97316] text-white border-[#f97316] shadow-[0_0_16px_rgba(249,115,22,0.35)]"
+                  : "bg-[#f97316]/10 text-[#f97316] border-[#f97316]/30 hover:bg-[#f97316]/20"
+              )}
+            >
+              <UploadCloud className="w-3.5 h-3.5" />
+              Upload APK
+            </Link>
+
             {/* CTA + Mobile toggle */}
             <div className="flex items-center gap-3">
               {/* Contact link — desktop only */}
@@ -409,6 +439,24 @@ export function Navbar() {
                   isActive={pathname.startsWith("/contact")}
                   onClose={() => setMobileOpen(false)}
                 />
+                <Link
+                  href="/dashboard"
+                  id="mobile-nav-dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-[#f97316] hover:bg-[#f97316]/5 rounded-lg transition-colors"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  Dashboard
+                </Link>
+                <Link
+                  href="/upload"
+                  id="mobile-nav-upload"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 px-4 py-3 text-sm font-bold text-[#f97316] bg-[#f97316]/5 border border-[#f97316]/20 rounded-lg transition-colors hover:bg-[#f97316]/10 mx-2"
+                >
+                  <UploadCloud className="w-4 h-4" />
+                  Upload APK
+                </Link>
               </nav>
 
               {/* Drawer CTA */}

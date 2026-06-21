@@ -3,6 +3,8 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CursorSpotlight } from "@/components/fx/CursorSpotlight";
+import { FloatingParticles } from "@/components/fx/FloatingParticles";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -53,6 +55,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-dvh flex flex-col bg-[#020817] text-[#e2e8f0] antialiased overflow-x-hidden">
+        <CursorSpotlight />
+        <FloatingParticles count={55} speed={0.16} />
         <Navbar />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { staggerContainer, fadeUp, viewportOnce } from "@/lib/motion";
+import { TiltCard } from "@/components/fx/TiltCard";
 
 // ─────────────────────────────────────────────
 // Section label — reused across all sections
@@ -49,51 +50,53 @@ const accentConfig = {
 function FeatureCard({ icon, title, description, tag, accent = "green", delay = 0 }: FeatureCardProps) {
   const c = accentConfig[accent];
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={viewportOnce}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6, scale: 1.01 }}
-      className="group relative flex flex-col rounded-2xl overflow-hidden cursor-default"
-      style={{ border: `1px solid rgba(15,41,66,0.8)` }}
-    >
-      {/* Hover glow overlay */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${c.glow} 0%, transparent 70%)` }}
-      />
-      {/* Top accent line */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `linear-gradient(90deg, transparent, ${c.border}, transparent)` }}
-      />
-
-      <div className="relative p-7 flex flex-col gap-5 bg-[#0a1628] h-full">
-        {/* Icon box */}
+    <TiltCard maxTilt={5} className="h-full">
+      <motion.div
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={viewportOnce}
+        transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ y: -6, scale: 1.01 }}
+        className="group relative flex flex-col rounded-2xl overflow-hidden cursor-default h-full"
+        style={{ border: `1px solid rgba(15,41,66,0.8)` }}
+      >
+        {/* Hover glow overlay */}
         <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
-          style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}20` }}
-        >
-          {icon}
-        </div>
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${c.glow} 0%, transparent 70%)` }}
+        />
+        {/* Top accent line */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ background: `linear-gradient(90deg, transparent, ${c.border}, transparent)` }}
+        />
 
-        <div className="flex-1">
-          <div className="flex items-start justify-between gap-3 mb-2">
-            <h3 className="text-base font-semibold text-white leading-snug">{title}</h3>
-            {tag && (
-              <span
-                className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-md tracking-wider uppercase"
-                style={{ color: c.text, background: c.bg, border: `1px solid ${c.border}30` }}
-              >
-                {tag}
-              </span>
-            )}
+        <div className="relative p-7 flex flex-col gap-5 bg-[#0a1628] h-full">
+          {/* Icon box */}
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
+            style={{ background: c.bg, color: c.text, border: `1px solid ${c.border}20` }}
+          >
+            {icon}
           </div>
-          <p className="text-sm text-[#64748b] leading-relaxed">{description}</p>
+
+          <div className="flex-1">
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <h3 className="text-base font-semibold text-white leading-snug">{title}</h3>
+              {tag && (
+                <span
+                  className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-md tracking-wider uppercase"
+                  style={{ color: c.text, background: c.bg, border: `1px solid ${c.border}30` }}
+                >
+                  {tag}
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-[#64748b] leading-relaxed">{description}</p>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </TiltCard>
   );
 }
 

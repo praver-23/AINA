@@ -78,7 +78,7 @@ function StatCard({ value, suffix, prefix = "", label, decimals = 0, color, dura
         background: c.track,
       }}
       whileHover={{ y: -4, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22, mass: 0.8 }}
     >
       {/* Background glow */}
       <div

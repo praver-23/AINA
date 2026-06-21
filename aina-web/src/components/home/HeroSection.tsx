@@ -6,6 +6,8 @@ import { Upload, Play, ChevronRight, Cpu, Shield, Network } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { Container } from "@/components/layout/Container";
 import { CyberVisualization } from "@/components/home/CyberVisualization";
+import { ParallaxLayer } from "@/components/fx/ParallaxLayer";
+import { MagneticWrapper } from "@/components/fx/MagneticButton";
 
 // ─────────────────────────────────────────────
 // Animated background grid + glow for hero
@@ -16,25 +18,29 @@ function HeroBackground() {
       {/* Base grid */}
       <div className="absolute inset-0 bg-grid opacity-60" />
 
-      {/* Green glow — upper left */}
-      <motion.div
-        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(0,255,133,0.07) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Green glow — upper left, parallax layer */}
+      <ParallaxLayer strength={22} lerp={0.05} className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none">
+        <motion.div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(ellipse, rgba(0,255,133,0.07) 0%, transparent 70%)",
+          }}
+          animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </ParallaxLayer>
 
-      {/* Teal glow — lower right */}
-      <motion.div
-        className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(0,180,216,0.06) 0%, transparent 70%)",
-        }}
-        animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+      {/* Teal glow — lower right, parallax layer (opposite direction) */}
+      <ParallaxLayer strength={16} lerp={0.04} className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none">
+        <motion.div
+          className="w-full h-full rounded-full"
+          style={{
+            background: "radial-gradient(ellipse, rgba(0,180,216,0.06) 0%, transparent 70%)",
+          }}
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </ParallaxLayer>
 
       {/* Horizontal scan line */}
       <motion.div
@@ -113,54 +119,58 @@ function CTAButtons() {
       className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
     >
       {/* Primary — Analyze APK */}
-      <Link
-        href="/platform"
-        id="hero-analyze-apk"
-        className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
-        style={{
-          background: "linear-gradient(135deg, #00ff85, #00d4aa)",
-          color: "#020817",
-          boxShadow: "0 0 20px rgba(0,255,133,0.3), 0 4px 20px rgba(0,255,133,0.2)",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-            "0 0 35px rgba(0,255,133,0.5), 0 6px 30px rgba(0,255,133,0.3)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.boxShadow =
-            "0 0 20px rgba(0,255,133,0.3), 0 4px 20px rgba(0,255,133,0.2)";
-        }}
-      >
-        {/* Shimmer */}
-        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-        <Upload className="w-4 h-4 shrink-0" />
-        Analyze APK
-        <ChevronRight className="w-4 h-4 opacity-60 group-hover:translate-x-0.5 transition-transform" />
-      </Link>
+      <MagneticWrapper strength={0.35}>
+        <Link
+          href="/platform"
+          id="hero-analyze-apk"
+          className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+          style={{
+            background: "linear-gradient(135deg, #00ff85, #00d4aa)",
+            color: "#020817",
+            boxShadow: "0 0 20px rgba(0,255,133,0.3), 0 4px 20px rgba(0,255,133,0.2)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+              "0 0 35px rgba(0,255,133,0.5), 0 6px 30px rgba(0,255,133,0.3)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+              "0 0 20px rgba(0,255,133,0.3), 0 4px 20px rgba(0,255,133,0.2)";
+          }}
+        >
+          {/* Shimmer */}
+          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+          <Upload className="w-4 h-4 shrink-0" />
+          Analyze APK
+          <ChevronRight className="w-4 h-4 opacity-60 group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+      </MagneticWrapper>
 
       {/* Secondary — View Demo */}
-      <button
-        id="hero-view-demo"
-        className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl border font-medium text-sm transition-all duration-300 hover:-translate-y-0.5"
-        style={{
-          borderColor: "rgba(0,180,216,0.3)",
-          color: "#e2e8f0",
-          background: "rgba(0,180,216,0.05)",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,180,216,0.6)";
-          (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,180,216,0.1)";
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 20px rgba(0,180,216,0.15)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,180,216,0.3)";
-          (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,180,216,0.05)";
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
-        }}
-      >
-        <Play className="w-4 h-4 text-[#00b4d8] fill-[#00b4d8] shrink-0" />
-        View Demo
-      </button>
+      <MagneticWrapper strength={0.28}>
+        <button
+          id="hero-view-demo"
+          className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl border font-medium text-sm transition-all duration-300 hover:-translate-y-0.5"
+          style={{
+            borderColor: "rgba(0,180,216,0.3)",
+            color: "#e2e8f0",
+            background: "rgba(0,180,216,0.05)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,180,216,0.6)";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,180,216,0.1)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 20px rgba(0,180,216,0.15)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,180,216,0.3)";
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(0,180,216,0.05)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
+          }}
+        >
+          <Play className="w-4 h-4 text-[#00b4d8] fill-[#00b4d8] shrink-0" />
+          View Demo
+        </button>
+      </MagneticWrapper>
     </motion.div>
   );
 }

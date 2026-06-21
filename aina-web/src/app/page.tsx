@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { StatsSection } from "@/components/home/StatsSection";
+import { FeaturesSection } from "@/components/home/FeaturesSection";
+import { ArchitectureSection } from "@/components/home/ArchitectureSection";
+import { WorkflowSection } from "@/components/home/WorkflowSection";
+import { RiskScoringSection } from "@/components/home/RiskScoringSection";
+import { ThreatIntelligenceSection } from "@/components/home/ThreatIntelligenceSection";
+import { ImpactSection } from "@/components/home/ImpactSection";
+import { FAQSection } from "@/components/home/FAQSection";
 
 export const metadata: Metadata = {
   title: "AINA — AI-Powered Malware Intelligence",
@@ -23,6 +30,13 @@ export default function HomePage() {
     <>
       <HeroSection />
       <StatsSection />
+      <FeaturesSection />
+      <ArchitectureSection />
+      <WorkflowSection />
+      <RiskScoringSection />
+      <ThreatIntelligenceSection />
+      <ImpactSection />
+      <FAQSection />
     </>
   );
 }
