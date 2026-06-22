@@ -1,20 +1,18 @@
 # AINA
 
-Built for PSB Hackathon. AINA is a malware analysis tool that takes an Android APK, runs it through a static + dynamic + AI pipeline, and gives you a plain-language report on what it does and how dangerous it is — instead of just a flag saying "malicious."
+AINA is a GenAI-powered malware analysis platform that helps people identify malicious Android applications before they compromise their privacy, finances, and digital security. It analyzes Android APKs using static analysis, dynamic sandbox execution, and AI-generated threat explanations — giving security teams something more useful than a raw scan result.
 
 ---
 
 ## Problem Statement
 
-Malicious APKs are a common vector for financial fraud. Banking trojans, fake utility apps, and overlay malware steal credentials and OTPs, often going undetected because existing tools either need expert reverse engineers to interpret them, or produce outputs that are too noisy to act on quickly.
-
-The gap isn't detection — it's explainability.
+Malicious APKs are a common vector for financial fraud. Banking trojans, fake utility apps, and overlay malware steal credentials and OTPs, often going undetected because existing tools either need expert reverse engineers to interpret them, or produce outputs that are too noisy to act on quickly. There's a gap between "file is malicious" and "here's exactly what it does and why."
 
 ---
 
 ## About AINA
 
-AINA is built around the idea that a threat report should be readable by a security analyst, not just a researcher. You drop an APK, it gets decompiled, its permissions and API calls are analyzed, it runs in a sandbox, an ML model classifies it, and an LLM writes up what it actually does — which malware family it belongs to, which APIs it abuses, and which MITRE ATT&CK techniques apply.
+AINA bridges that gap. It's designed to take a raw APK, run it through a full analysis pipeline — static decompilation, permission analysis, dynamic sandbox execution, YARA rule matching, and ML-based classification — and return an explainable threat report written in plain language. You drop an APK, it gets decompiled, its permissions and API calls are analyzed, it runs in a sandbox, an ML model classifies it, and an LLM writes up what it actually does — which malware family it belongs to, which APIs it abuses, and which MITRE ATT&CK techniques apply.
 
 The backend integration is still pending. The frontend is complete and demonstrates the full intended user flow with simulated data.
 
