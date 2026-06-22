@@ -1,36 +1,170 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AINA
+
+Built for PSB Hackathon. AINA is a malware analysis tool that takes an Android APK, runs it through a static + dynamic + AI pipeline, and gives you a plain-language report on what it does and how dangerous it is — instead of just a flag saying "malicious."
+
+---
+
+## Problem Statement
+
+Malicious APKs are a common vector for financial fraud. Banking trojans, fake utility apps, and overlay malware steal credentials and OTPs, often going undetected because existing tools either need expert reverse engineers to interpret them, or produce outputs that are too noisy to act on quickly.
+
+The gap isn't detection — it's explainability.
+
+---
+
+## About AINA
+
+AINA is built around the idea that a threat report should be readable by a security analyst, not just a researcher. You drop an APK, it gets decompiled, its permissions and API calls are analyzed, it runs in a sandbox, an ML model classifies it, and an LLM writes up what it actually does — which malware family it belongs to, which APIs it abuses, and which MITRE ATT&CK techniques apply.
+
+The backend integration is still pending. The frontend is complete and demonstrates the full intended user flow with simulated data.
+
+---
+
+## Screenshots
+
+**Homepage**
+
+![Homepage hero with cyber visualization and APK scanner](../AINA/Screenshot%202026-06-22%20230339.png)
+
+**Dashboard**
+
+![Dashboard showing threat score cards, weekly scan chart, and risk breakdown donut](../AINA/Screenshot%202026-06-22%20230356.png)
+
+**Upload & Analyse**
+
+![Upload page with drag-and-drop zone and recent uploads sidebar](../AINA/Screenshot%202026-06-22%20230419.png)
+
+---
+
+## Demo
+
+- [AINA-website.mp4](../AINA/AINA-website.mp4) — full site walkthrough
+- [AINA_Homepage_Figma Demo.mp4](../AINA/AINA_Homepage_Figma%20Demo.mp4) — early Figma prototype
+
+---
+
+## Features
+
+What's actually built in the frontend:
+
+- **Dark UI with cyber aesthetic** — custom design system, glassmorphism panels, glow effects, dot/grid backgrounds
+- **Animated landing page** — nine sections, all scroll-triggered with Framer Motion
+- **APK upload flow** — drag-and-drop or file browse, six-stage pipeline simulation (upload → static → dynamic → LLM → scoring → report), verdict panel at the end
+- **Dashboard** — threat score cards, weekly bar chart, risk distribution donut, permissions table, suspicious API list, analysis timeline, engine status
+- **Risk scoring panel** — interactive gauge with per-dimension bars; three sample APKs to switch between (BankBot, SpyAgent, CleanUtil)
+- **Threat intelligence section** — scrolling threat feed, intelligence source cards
+- **FAQ** — accordion with category filter tabs
+- **Cursor spotlight** — radial glow that follows the mouse, implemented with rAF + lerp, no React state
+- **Floating particles** — canvas-based particle system running globally (60 particles, twinkling, slow drift)
+- **Micro-interactions** — tilt cards, magnetic buttons, parallax layers, scroll-animated pipeline connector, hover glows
+- **Responsive** — works on mobile, tablet, desktop; mobile nav is a slide-in drawer
+- **Supporting pages** — Platform, Solutions, Pricing, About, Blog, Careers, Contact, Legal
+
+---
+
+## Tech Stack
+
+### Frontend
+
+| | |
+|---|---|
+| Next.js 16 | App Router |
+| React 19 | — |
+| TypeScript 5 | — |
+| Tailwind CSS 4 | — |
+| Framer Motion 12 | animations |
+| shadcn/ui | component primitives |
+| Lucide React | icons |
+| Space Grotesk | heading/body font |
+| JetBrains Mono | monospace font |
+
+### Backend (Planned)
+
+Not integrated yet. The current pipeline runs on `setTimeout` chains and hardcoded mock data. Planned stack:
+
+| Layer | Tech |
+|---|---|
+| API | FastAPI |
+| Queue / Cache | Redis |
+| Database | PostgreSQL |
+| Auth + Storage | Supabase |
+| AI orchestration | LangChain |
+| LLM | Gemini |
+
+---
+
+## Project Structure
+
+```
+aina-web/
+├── src/
+│   ├── app/                  # Pages (Next.js App Router)
+│   │   ├── page.tsx          # Landing page
+│   │   ├── layout.tsx        # Root layout — fonts, Navbar, Footer, global effects
+│   │   ├── globals.css       # Design tokens, Tailwind config, utility classes
+│   │   ├── upload/           # APK upload + pipeline UI
+│   │   ├── dashboard/        # Threat intelligence dashboard
+│   │   ├── platform/
+│   │   ├── solutions/
+│   │   ├── pricing/
+│   │   ├── about/
+│   │   ├── blog/
+│   │   ├── careers/
+│   │   ├── contact/
+│   │   └── legal/
+│   ├── components/
+│   │   ├── home/             # Landing page sections
+│   │   ├── layout/           # Navbar, Footer, PageHero, Section, Container
+│   │   ├── fx/               # Cursor, particles, tilt, parallax, magnetic button
+│   │   ├── contact/          # Contact form
+│   │   └── ui/               # shadcn primitives
+│   └── lib/
+│       ├── motion.ts         # Framer Motion variants and spring presets
+│       └── utils.ts          # cn() helper
+├── docs/                     # Design system notes (not served)
+├── AINA/                     # Screenshots and demo videos
+├── package.json
+├── next.config.ts
+└── tsconfig.json
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone https://github.com/aashitiwari102/AINA.git
+cd AINA/aina-web
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`@/*` maps to `src/*`.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## What's Not Built Yet
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The frontend is complete. Backend integration is the next step:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Static analysis engine** — APK decompilation (JADX), DEX parsing, permission extraction, YARA matching
+- **Dynamic sandbox** — sandboxed execution, API call tracing, network capture, anti-evasion
+- **LLM threat narratives** — connecting the analysis output to Gemini for plain-language explanations
+- **Risk scoring backend** — real composite scoring from actual signals instead of hardcoded values
+- **WebSocket updates** — live pipeline progress instead of simulated timers
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Team Ego Primus
+
+- Praver Agarwal
+- Aashi Tiwari
